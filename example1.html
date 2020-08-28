@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Welcome to Vue</title>
+    <!-- <script src="https://unpkg.com/vue/dist/vue.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+</head>
+
+<body>
+<template>
+    <div>
+      <div>
+        {{ value }}
+      </div>
+      <div>
+        {{ doubleValue }}
+      </div>
+      <button v-on:click="plus"> 클릭! </button>
+    </div>
+    </template>
+    
+    <script>
+    new Vue ({
+      name: 'HelloWorld',
+      data () {
+        return {
+          value: 10
+        }
+      },
+      methods: {
+        plus: function() {
+          this.value ++
+        }
+      },
+      computed: {
+        doubleValue: function() {
+          return this.value * 2
+        }
+      }
+    })
+    </script>
+</body>
+</html>

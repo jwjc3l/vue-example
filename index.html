@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Welcome to Vue</title>
+    
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+</head>
+
+<style>
+    #list {
+        width: 400px;
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+    
+    #list td,
+    #list th {
+        border: 1px solid black;
+        text-align: center;
+    }
+    
+    #list>thead>tr {
+        color: yellow;
+        background-color: purple;
+    }
+    .greenColor{
+        background-color:green
+    }
+    .redColor{
+        background-color:red
+    }
+    .grayColor{
+        background-color:gray
+    }
+</style>
+
+<body>
+    <div id='example'>
+        <p>
+            국가명 : <input type='text' v-model='countryname' placeholder="국가명" />
+        </p>
+        <br/>
+
+        <table id="list">
+            <thead :title="filtered.length">
+                <tr>
+                    <th>No.</th>
+                    <th>국가명</th>
+                    <th>코드</th>
+                </tr>
+            </thead>
+            <tbody id='contacts'>
+                <tr @dblclick="temp(idx)" v-for="(c,idx) in filtered">
+                    <td :class="c.cv+'Color'">{{idx+1}}</td>
+                    <td>{{c.name}}</td>
+                    <td>{{c.code}}</td>
+                </tr>
+                <tr v-show="filtered.length === 0">
+                    <td colspan='3'>데이터가 없습니다.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+
+$( document ).ready(function() {
+
+    const params = getUrlParams();
+const div = params.div;
+$.each( params, function( key, value ) {
+  console.log( key + ": " + value );
+});
+
+});
+
+function getUrlParams() {
+    var params = {};
+    window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(str, key, value) { params[key] = value; });
+    return params;
+}
+        function temp(val) {
+            alert('fuck:' + val);
+        }
+        var model = {
+            countryname: '',
+            countries: [{
+                "name": "Afghanistan",
+                "code": "AF", "cv":"green"
+            }, {
+                "name": "Turkey",
+                "code": "TR", "cv":"gray"
+            }, {
+                "name": "Turkmenistan",
+                "code": "TM", "cv":"red"
+            }]
+        };
+
+        var clist = new Vue({
+            el: '#example',
+            data: model,
+            /* methods:{
+                return: function(){
+                    
+                }
+            } */
+            computed: {
+                filtered: function() {
+                    var cname = this.countryname == null ? "" : this.countryname.trim().toUpperCase();
+                    var rst = this.countries.filter(function(item) {
+                        if (item.name.toUpperCase().indexOf(cname) > -1) {
+                            return true;
+                        }
+                    });
+                    return rst;
+                }
+            }
+        });
+		
+		var state = { 'page_id': 1, 'user_id': 5 };
+var title = 'Hello World';
+var url = location.pathname+'?div=fuck&show=think';
+var sPageURL = window.location.search.substring(1);
+
+    console.log( "location.href : " , location.href);
+    console.log( "sPageURL : " , sPageURL);
+ 
+history.pushState(state, title, url);
+
+    </script>
+
+</body>
+
+</html>
